@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section>
+    <h2>Register</h2>
+    <form id="registerForm">
+      <input type="text" name="name" placeholder="Full Name" required><br>
+      <input type="number" name="age" placeholder="Age" required><br>
+      <input type="text" name="gender" placeholder="Gender" required><br>
+      <input type="text" name="contact" placeholder="Contact" required><br>
+      <input type="text" name="username" placeholder="Username" required><br>
+      <input type="password" name="password" placeholder="Password" required><br>
+      <button type="submit">Register</button>
+    </form>
+    <p>Already have an account? <a href="login.html">Login here</a></p>
+  </section>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $('#registerForm').submit(function (e) {
+      e.preventDefault();
+      const user = {
+        name: $('input[name="name"]').val(),
+        age: parseInt($('input[name="age"]').val()),
+        gender: $('input[name="gender"]').val(),
+        contact: $('input[name="contact"]').val(),
+        username: $('input[name="username"]').val(),
+        password: $('input[name="password"]').val()
+      };
+      console.log("Sending user:", user);
+$.ajax({
+  url: '/add-user',
+  type: 'POST',
+  contentType: 'application/json',
+  data: JSON.stringify(user),
+  success: function () {
+    alert("Registration successful! You can now log in.");
+    window.location.href = 'login.html';
+  },
+  error: function (xhr) {
+    alert("Error during registration: " + xhr.responseText);
+  }
+});
+
+    });
+  </script>
+</body>
+</html>
