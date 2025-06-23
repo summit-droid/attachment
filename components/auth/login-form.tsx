@@ -25,7 +25,7 @@ export function LoginForm() {
 
     try {
       await signIn(email, password)
-      router.push("/dashboard")
+      router.push("/")
     } catch (err: any) {
       setError(err.message)
     } finally {
